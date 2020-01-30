@@ -1,7 +1,10 @@
 package com.zhm.user.repo;
 
-import com.zhm.user.domain.User;
+import com.zhm.user.domain.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<AppUser,Long> {
+    Optional<AppUser> findByEmail(String email);
 }

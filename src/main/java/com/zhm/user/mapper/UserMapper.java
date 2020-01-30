@@ -1,6 +1,6 @@
 package com.zhm.user.mapper;
 
-import com.zhm.user.domain.User;
+import com.zhm.user.domain.AppUser;
 import com.zhm.user.dto.UserCreateRequestDTO;
 import com.zhm.user.dto.UserResponseDTO;
 import org.mapstruct.*;
@@ -20,16 +20,16 @@ public abstract class UserMapper {
     //@Mapping(target = "encryptedPassword", expression = "java(bCrypt.encode(dto.getPassword()))")
     @Mapping(target = "lastName", source = "familyName")
     @Mapping(target = "firstName", source = "givenName")
-    public abstract User userCreateRequestDTOToUser(UserCreateRequestDTO dto);
+    public abstract AppUser userCreateRequestDTOToUser(UserCreateRequestDTO dto);
 
     @AfterMapping
-    public void userCreateRequestDTOToUser(UserCreateRequestDTO dto, @MappingTarget User user) {
-        user.setEncryptedPassword(bCrypt.encode(dto.getPassword()));
+    public void userCreateRequestDTOToUser(UserCreateRequestDTO dto, @MappingTarget AppUser appUser) {
+        appUser.setEncryptedPassword(bCrypt.encode(dto.getPassword()));
     }
 
     @Mapping(target = "givenName", source = "firstName")
     @Mapping(target = "familyName", source = "lastName")
-    public abstract UserResponseDTO userToUserResponseDTO(User user);
+    public abstract UserResponseDTO userToUserResponseDTO(AppUser appUser);
 
     public String UUIDToString(UUID uuid) {
         return uuid.toString();
